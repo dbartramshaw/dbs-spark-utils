@@ -44,10 +44,14 @@ df.where(col("col1").isNull())
 
 
 
+
+
 #############################
-# Join
+# Joins
 #############################
 left_join = ta.join(tb, ta.name == tb.name,how='left')
+
+
 
 
 
@@ -60,3 +64,18 @@ df.registerTempTable('df_name')
 
 # run sql & assign
 df = spark.sql("create table schema.table_name as select * from table_name where col > 10")
+
+
+
+
+#############################
+# Pyspark to Python
+#############################
+# Convert 2 columns to dict
+keypair_rdd = df.select('col1','col2').rdd.map(lambda x : (x[1],x[0]))
+dict = keypair_rdd.collectAsMap()
+print(dict)
+
+#Convert column to list
+mylist = df.select('col1').rdd.flatMap(lambda x: x).collect()
+print(mylist)
