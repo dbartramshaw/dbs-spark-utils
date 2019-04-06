@@ -79,3 +79,6 @@ print(dict)
 #Convert column to list
 mylist = df.select('col1').rdd.flatMap(lambda x: x).collect()
 print(mylist)
+
+#pandas df to pyspark
+spark.createDataFrame(pandas_df_name)
